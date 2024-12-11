@@ -1,4 +1,4 @@
-from htmlnode import *
+from htmlnode import HTMLNode
 
 class ParentNode(HTMLNode):
 	def __init__(self, tag, children, props=None):
@@ -6,7 +6,7 @@ class ParentNode(HTMLNode):
 
 	def to_html(self):
 		if self.tag == None:
-			raise ValueError("Must have a value")
+			raise ValueError("Must have a tag")
 		if len(self.children) == 0:
 			raise ValueError("Must have children")
 		children_list = []

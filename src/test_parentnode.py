@@ -1,6 +1,6 @@
 import unittest
-from parentnode import *
-from leafnode import *
+from parentnode import ParentNode
+from leafnode import LeafNode
 
 class TestParentNode(unittest.TestCase):
 	def test_children2_props0(self):

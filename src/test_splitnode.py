@@ -1,12 +1,12 @@
 import unittest
-from splitnode import *
-from textnode import TextNode
+from splitnode import split_nodes_delimiter, split_nodes_link, split_nodes_image
+from textnode import TextNode, TextType
 
 class TestImageAndLinkSplit(unittest.TestCase):
 	def test_empty_string(self):
 		node = TextNode("", TextType.TEXT)
-		self.assertEqual(split_nodes_image([node]), [node])
-		self.assertEqual(split_nodes_link([node]), [node])
+		self.assertEqual(split_nodes_image([node]), [])
+		self.assertEqual(split_nodes_link([node]), [])
 
 	def test_normal_text(self):
 		node = TextNode("Normal Text", TextType.TEXT)
@@ -78,7 +78,7 @@ class TestImageAndLinkSplit(unittest.TestCase):
 			TextNode("image1", TextType.IMAGE, "img1.jpg"),
 			TextNode(" and one [Link1](https://www.google.com) and another ", TextType.TEXT),
 			TextNode("image2", TextType.IMAGE, "img2.jpg"),
-			TextNode("and another [Link2](https://www.youtube.com) in it", TextType.TEXT)
+			TextNode(" and another [Link2](https://www.youtube.com) in it", TextType.TEXT)
 			]
 		)
 		self.assertEqual(

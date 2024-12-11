@@ -1,5 +1,5 @@
 from enum import Enum
-from leafnode import LeafNode
+from htmlnode import HTMLNode
 class TextType(Enum):
 	TEXT = "normal"
 	BOLD = "bold"
@@ -8,8 +8,9 @@ class TextType(Enum):
 	LINK = "link"
 	IMAGE = "image"
 
-class TextNode:
+class TextNode(HTMLNode):
 	def __init__(self, text, text_type, url=None):
+		super().__init__()
 		self.text = text
 		self.text_type = text_type
 		self.url = url
@@ -19,33 +20,27 @@ class TextNode:
 
 	def __repr__(self):
 		return f"TextNode({self.text}, {self.text_type.value}, {self.url})"
-
-	def text_node_to_html(self):
+	
+	def to_html(self):
 		match self.text_type:
 
 			case TextType.TEXT:
-				result = LeafNode(None, self.text, None)
-				return result
+				return self.text
 
 			case TextType.BOLD:
-				result = LeafNode("b", self.text, None)
-				return result
+				return f"<b>{self.text}</b>"
 
 			case TextType.ITALIC:
-				result = LeafNode("i", self.text, None)
-				return result
+				return f"<i>{self.text}</i>"
 
 			case TextType.CODE:
-				result = LeafNode("code", self.text, None)
-				return result
+				return f"<code>{self.text}</code>"
 
 			case TextType.LINK:
-				result = LeafNode("a", self.text, {"href": self.url})
-				return result
+				return f"<a href='{self.url}'>{self.text}</a>"
 
 			case TextType.IMAGE:
-				result = LeafNode("img", None, {"src": self.url, "alt": self.text})
-				return result
+				return f"<img src='{self.url}' alt='{self.text}'>"
 
 			case _:
 				raise Exception("Invalid Text Type")
